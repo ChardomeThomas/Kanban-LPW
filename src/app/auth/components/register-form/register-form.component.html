@@ -1,0 +1,98 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>S'inscrire</mat-card-title>
+    <mat-card-subtitle
+      >Inscrivez vous pour accéder à l'applciation</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="M">Homme</mat-option>
+          <mat-option value="F">Femme</mat-option>
+          <mat-option value="X">X</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nom</mat-label>
+        <input type="text" formControlName="name" matInput placeholder="Doe" />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+        <mat-error>Champs requis</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Prénom</mat-label>
+        <input
+          type="text"
+          formControlName="firstname"
+          matInput
+          placeholder="Jonh"
+        />
+        @if (form.controls.firstname.touched && form.controls.firstname.invalid)
+        {
+        <mat-error>Champs requis</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date de naissance</mat-label>
+        <input
+          type="date"
+          formControlName="date"
+          matInput
+          placeholder="01/02/1992"
+        />
+        @if (form.controls.date.touched &&
+        form.controls.date.hasError('required')) {
+        <mat-error>Champs requis</mat-error>
+        } @if (form.controls.date.touched &&
+        form.controls.date.hasError('isDateLessToday')) {
+        <mat-error>Ne peut être suppérieure à la date du jour</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          formControlName="email"
+          matInput
+          placeholder="Ex. pat@example.com"
+        />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+        <mat-error>Champs requis</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" formControlName="password" matInput />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+        <mat-error>Champs requis</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmation mot de passe</mat-label>
+        <input type="password" formControlName="password2" matInput />
+        @if (form.controls.password2.touched && form.controls.password2.hasError('required'))
+        {
+        <mat-error>Champs requis</mat-error>
+        }
+        @if (form.controls.password2.touched && form.hasError('isControlsSame'))
+        {
+        <mat-error>Le mot de passe ne correspond pas</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-flat-button (click)="onBack.next()">Retour</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!form.valid"
+      (click)="register()"
+    >
+      S'inscrire
+    </button>
+  </mat-card-actions>
+</mat-card>

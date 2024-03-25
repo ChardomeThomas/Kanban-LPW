@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <span>{{ appName | titlecase }}</span>
+  <span class="example-spacer"></span>
+  @if(isLoggedIn){
+    <mat-icon (click)="logout.next()">logout</mat-icon>
+  }
+</mat-toolbar>
