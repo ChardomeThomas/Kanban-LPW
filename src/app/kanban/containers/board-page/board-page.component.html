@@ -1,1 +1,51 @@
-<p>board-page works!</p>
+<div class="example-container">
+    <h2>To do</h2>
+
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[StandByList, InProgressList, BlockedList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of todo; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+        }
+    </div>
+</div>
+
+<div class="example-container">
+    <h2>StandBy</h2>
+
+    <div cdkDropList #StandByList="cdkDropList" [cdkDropListData]="StandBy" [cdkDropListConnectedTo]="[todoList, InProgressList, BlockedList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of StandBy; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+        }
+    </div>
+</div>
+<div class="example-container">
+    <h2>In Progress</h2>
+
+    <div cdkDropList #InProgressList="cdkDropList" [cdkDropListData]="InProgress" [cdkDropListConnectedTo]="[todoList, StandByList, BlockedList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of InProgress; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+        }
+    </div>
+</div>
+<div class="example-container">
+    <h2> Blocked</h2>
+
+    <div cdkDropList #BlockedList="cdkDropList" [cdkDropListData]="Blocked" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of Blocked; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+        }
+    </div>
+</div>
+<div class="example-container">
+    <h2>Close</h2>
+
+    <div cdkDropList #CloseList="cdkDropList" [cdkDropListData]="Close" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, BlockedList]"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of Close; track item) {
+        <div class="example-box" cdkDrag>{{item}}</div>
+        }
+    </div>
+</div>
