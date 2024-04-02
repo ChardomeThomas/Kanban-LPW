@@ -16,13 +16,13 @@ import {
   styleUrl: './board-page.component.scss'
 })
 export class BoardPageComponent {
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+  todo: any [] = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
-  StandBy = [];
-  InProgress = [];
-  Blocked = [];
-  Close = [];
-  drop(event: CdkDragDrop<string[], string[]>) {
+  StandBy: any [] = [];
+  InProgress: any [] = [];
+  Blocked: any [] = [];
+  Close: any [] = [];
+  drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

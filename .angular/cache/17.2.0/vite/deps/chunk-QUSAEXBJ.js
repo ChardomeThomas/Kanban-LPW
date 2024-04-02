@@ -7,10 +7,10 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-HK4EC67M.js";
+} from "./chunk-CLNX6TK3.js";
 import {
   DOCUMENT
-} from "./chunk-VFSDI4UN.js";
+} from "./chunk-XK7WLNNW.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -76,7 +76,7 @@ import {
   ɵɵqueryRefresh,
   ɵɵstyleProp,
   ɵɵviewQuery
-} from "./chunk-Z7OITQCN.js";
+} from "./chunk-YK2U35JI.js";
 
 // node_modules/@angular/cdk/fesm2022/collections.mjs
 var DataSource = class {
@@ -1960,4 +1960,4 @@ export {
   CdkScrollableModule,
   ScrollingModule
 };
-//# sourceMappingURL=chunk-2ORDORZD.js.map
+//# sourceMappingURL=chunk-QUSAEXBJ.js.map

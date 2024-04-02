@@ -1,18 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { IBoardDto } from '../../../core/models/board.model';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule, ReactiveFormsModule],
   templateUrl: './board-form.component.html',
   styleUrl: './board-form.component.scss'
 })
+
 export class BoardFormComponent {
-CreateBoard() {
-  console.log('Create Board');
+public form = new FormGroup(
+    {
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      url: new FormControl('', [Validators.required]),
+
+    },
+  );
+  @Output() public onRegister = new EventEmitter<IBoardDto>();
+  public RegisterBoard(): void {
+    const userDto: IBoardDto = {
+
+	  title: this.form.controls.title.value!,
+description: this.form.controls.description.value!,
+url: this.form.controls.url.value!
+    };
+console.log(userDto);
+    this.onRegister.next(userDto);
+  }
+
 }
-}
+

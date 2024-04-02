@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router, RouterModule  } from '@angular/router';
 import { BoardFormComponent } from '../../components/board-form/board-form.component';
 import { CommonModule } from '@angular/common';
+import { IBoardDto } from '../../../core/models/board.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -13,11 +16,14 @@ import { CommonModule } from '@angular/common';
 export class HomePageComponent {
   public userName: string|undefined;
   showBoardForm: boolean = false;
+
+
   toggleBoardForm() {
     this.showBoardForm = !this.showBoardForm;
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router ) {
     this.userName = this.authService.userLoggedFullName;
   }
+  
 }
