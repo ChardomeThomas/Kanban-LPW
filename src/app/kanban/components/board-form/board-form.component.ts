@@ -32,9 +32,9 @@ export class BoardFormComponent {
     {
       title: new FormControl("", [Validators.required]),
       description: new FormControl("", [Validators.required]),
-      url: new FormControl("", [Validators.required]),
+      url: new FormControl("", [Validators.required, UrlValidator.isUrlValid("url")]),
     },
-    [UrlValidator.isUrlValid("url")]
+    
   );
   @Output() public onRegister = new EventEmitter<IBoardDto>();
   public RegisterBoard(): void {
@@ -45,5 +45,8 @@ export class BoardFormComponent {
     };
     console.log(userDto);
     this.onRegister.next(userDto);
+	
+  }
+  constructor(){
   }
 }
