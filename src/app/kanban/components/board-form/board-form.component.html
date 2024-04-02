@@ -20,9 +20,13 @@
 	  @if (form.controls.url.touched && form.controls.url.invalid) {
         <mat-error>Champs requis</mat-error>
         }
+		@if (form.controls.url.touched && form.hasError('isUrlValid'))
+        {
+        <mat-error>Url non valide</mat-error>
+        }
     </mat-form-field>
 </form>
     <mat-card-actions align="end">
-        <button mat-flat-button  (click)="RegisterBoard()">Créer le board</button>
+        <button mat-flat-button  (click)="RegisterBoard()" [disabled]="!form.valid">Créer le board</button>
       </mat-card-actions>
   
