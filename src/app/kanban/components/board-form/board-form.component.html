@@ -61,7 +61,8 @@
 		 </form>
 	   </div>
 	   <div mat-dialog-actions>
-		 <button mat-button (click)="registerBoard()" [disabled]="form.invalid">Créer le board</button>
-		 <button mat-button mat-dialog-close>Annuler</button>
-	   </div>
+		<button mat-button (click)="registerBoard('valid')" [disabled]="form.invalid">Créer le board</button>
+		<button mat-button (click)="registerBoard('cancel')">Annuler</button>
+	  </div>
+	  
 	   

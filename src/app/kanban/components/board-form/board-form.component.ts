@@ -79,7 +79,7 @@ export class BoardFormComponent {
     });
   }
 
-  registerBoard() {
+  registerBoard(type: 'cancel' | 'valid') {
     if (this.form.valid) {
       const boardDto: IBoardDto = {
         title: this.form.controls['title'].value,
@@ -87,8 +87,10 @@ export class BoardFormComponent {
         url: this.form.controls['url'].value
       };
       this.onRegister.emit(boardDto);
-      this.dialogRef.close();
-    }
+	  
+    }else if (type === 'cancel') {
+	  this.dialogRef.close();
+	}
   }
   
 }
