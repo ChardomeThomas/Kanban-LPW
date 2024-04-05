@@ -3007,6 +3007,7 @@ export {
   supportsScrollBehavior,
   getRtlScrollAxisType,
   _getShadowRoot,
+  _getFocusedElementPierceShadowDom,
   _getEventTarget,
   _isTestEnvironment,
   Directionality,
@@ -3026,10 +3027,13 @@ export {
   addAriaReferencedId,
   removeAriaReferencedId,
   ActiveDescendantKeyManager,
+  InteractivityChecker,
+  FocusTrapFactory,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
   LiveAnnouncer,
   FocusMonitor,
-  HighContrastModeDetector
+  HighContrastModeDetector,
+  A11yModule
 };
-//# sourceMappingURL=chunk-CLNX6TK3.js.map
+//# sourceMappingURL=chunk-TMN4EUG2.js.map

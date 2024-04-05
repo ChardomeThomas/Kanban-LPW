@@ -1,5 +1,11 @@
-<p>{{ userName }}</p>
+<!-- <p>{{ userName }}</p>
 <button (click)="toggleBoardForm()">Créer un board</button>
 <app-board-form *ngIf="showBoardForm"></app-board-form>
+<a routerLink="/board">Accéder à la page board</a>
+<router-outlet></router-outlet> -->
+
+
+<p>{{ userName }}</p>
+<button (click)="openBoardDialog()">Créer un board</button>
 <a routerLink="/board">Accéder à la page board</a>
 <router-outlet></router-outlet>
