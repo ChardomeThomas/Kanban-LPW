@@ -8,3 +8,16 @@
 <button (click)="openBoardDialog()">Créer un board</button>
 <a routerLink="/board">Accéder à la page board</a>
 <router-outlet></router-outlet>
+
+<div >
+    @if(boards.length > 0){
+    <p>liste des boards</p>
+<div> @for( board of boards; track board){
+    <p>{{ board.title }}</p>
+    <p>{{ board.description }}</p>
+    <p>{{ board.url }}</p>
+}
+</div>
+
+}
+</div>

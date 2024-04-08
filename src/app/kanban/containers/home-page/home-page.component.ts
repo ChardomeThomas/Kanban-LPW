@@ -34,20 +34,28 @@ import { MatDialog } from '@angular/material/dialog';
 import { BoardFormComponent } from '../../components/board-form/board-form.component';
 import { IBoardDto } from '../../../core/models/board.model';
 import { Router, RouterModule  } from '@angular/router';
+import {LocalStorageService } from '../../../core/services/local-storage.service';
+import { BoardsService } from '../../services/boards.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [ RouterModule],
+  imports: [ RouterModule, CommonModule],
 })
+
+
 export class HomePageComponent {
   public userName: string | undefined;
-
-  constructor(private dialog: MatDialog) {
-    this.userName = 'Username'; // Remplacez ceci par votre logique pour récupérer le nom d'utilisateur
-  }
-
+  public boards: IBoardDto[] = [];
+  private readonly BOARD_DB_KEY = 'board';
+  constructor(private dialog: MatDialog, private localStorageService: LocalStorageService, private boardsService: BoardsService) {
+    this.userName = 'Username';
+  } 
+ngOnInit(){
+  this.loadBoards();
+}
   openBoardDialog() {
     const dialogRef = this.dialog.open(BoardFormComponent, {
       width: '500px'
@@ -55,7 +63,14 @@ export class HomePageComponent {
 
     dialogRef.componentInstance.onRegister.subscribe((boardDto: IBoardDto) => {
       console.log('Board registered:', boardDto);
-      // Vous pouvez ajouter votre logique pour enregistrer le tableau ici
+      this.boardsService.saveBoard(boardDto); // Sauvegardez le tableau à l'aide du service BoardsService
+      this.loadBoards(); // Rechargez les tableaux après l'enregistrement d'un nouveau tableau
     });
   }
+  loadBoards() {
+    
+    this.boards = this.localStorageService.getAll(this.BOARD_DB_KEY);
+    console.log(this.boards)
+  }
+
 }

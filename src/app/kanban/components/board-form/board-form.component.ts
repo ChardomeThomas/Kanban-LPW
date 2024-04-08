@@ -60,6 +60,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { UrlValidator } from '../../../shared/helper/url-validators.helper';
+import { BoardsService } from '../../services/boards.service';
 @Component({
   selector: 'app-board-form',
   templateUrl: './board-form.component.html',
@@ -71,7 +72,7 @@ export class BoardFormComponent {
   @Output() onRegister = new EventEmitter<IBoardDto>();
   form: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<BoardFormComponent>, private formBuilder: FormBuilder) {
+  constructor(private dialogRef: MatDialogRef<BoardFormComponent>, private formBuilder: FormBuilder, private boardsService: BoardsService) {
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -80,17 +81,19 @@ export class BoardFormComponent {
   }
 
   registerBoard(type: 'cancel' | 'valid') {
-    if (this.form.valid) {
+    if (type === 'cancel') {
+      this.dialogRef.close();
+    }
+    else if (this.form.valid) {
       const boardDto: IBoardDto = {
         title: this.form.controls['title'].value,
         description: this.form.controls['description'].value,
         url: this.form.controls['url'].value
       };
       this.onRegister.emit(boardDto);
-	  
-    }else if (type === 'cancel') {
-	  this.dialogRef.close();
-	}
+      this.boardsService.saveBoard(boardDto);
+      this.dialogRef.close();
+    }
   }
   
 }
