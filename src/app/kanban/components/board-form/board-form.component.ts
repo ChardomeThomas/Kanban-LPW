@@ -52,8 +52,8 @@
 // }
 
 
-import { Component, Output, EventEmitter } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Output, EventEmitter, Input, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IBoardDto } from '../../../core/models/board.model';
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -66,26 +66,33 @@ import { BoardsService } from '../../services/boards.service';
   templateUrl: './board-form.component.html',
   styleUrls: ['./board-form.component.scss'],
   imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
-  standalone: true,
+  
+standalone: true,
 })
 export class BoardFormComponent {
   @Output() onRegister = new EventEmitter<IBoardDto>();
+  @Input() nextId!: number;
   form: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<BoardFormComponent>, private formBuilder: FormBuilder, private boardsService: BoardsService) {
+  constructor(private dialogRef: MatDialogRef<BoardFormComponent>, private formBuilder: FormBuilder, private boardsService: BoardsService,  @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.nextId = this.data.nextId;
     this.form = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       url: ['', [Validators.required, UrlValidator.isUrlValid("url")]]
     });
+   
   }
-
+  
   registerBoard(type: 'cancel' | 'valid') {
     if (type === 'cancel') {
       this.dialogRef.close();
     }
     else if (this.form.valid) {
+   
+      console.log(this.nextId);
       const boardDto: IBoardDto = {
+        id: this.nextId,
         title: this.form.controls['title'].value,
         description: this.form.controls['description'].value,
         url: this.form.controls['url'].value

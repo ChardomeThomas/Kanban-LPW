@@ -13,7 +13,6 @@ export class AuthService {
 
   public login(email: string, password: string): void {
     const userExist = this.userService.getUserByEmail(email);
-
     if (userExist && userExist.password === password) {
       this._user = userExist;
     } else {

@@ -1,21 +1,25 @@
-<!-- <p>{{ userName }}</p>
-<button (click)="toggleBoardForm()">Créer un board</button>
-<app-board-form *ngIf="showBoardForm"></app-board-form>
-<a routerLink="/board">Accéder à la page board</a>
-<router-outlet></router-outlet> -->
-
-
 <button (click)="openBoardDialog()">Créer un board</button>
-<a routerLink="/board">Accéder à la page board</a>
+<a routerLink="/board/2">Accéder à la page board</a>
 <router-outlet></router-outlet>
 
 <div >
     @if(boards.length > 0){
     <p>liste des boards</p>
 <div> @for( board of boards; track board){
-    <p>{{ board.title }}</p>
-    <p>{{ board.description }}</p>
-    <p>{{ board.url }}</p>
+    <mat-card class="example-card">
+        <a [routerLink]="['/board/', board.id] "style="text-decoration: none; color: inherit;">
+        <router-outlet></router-outlet>
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ board.title }}</mat-card-title>
+            <img mat-card-md-image src="{{ board.url }}" >
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          {{board.description}}
+        </mat-card-content>
+    </a>
+      </mat-card>
 }
 </div>
 

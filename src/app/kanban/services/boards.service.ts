@@ -12,4 +12,15 @@ export class BoardsService {
   public saveBoard(board: IBoardDto): void {
     return this.localStorageService.setOne(this.BOARD_DB_KEY, board);
   }
+  public getId(board: IBoardDto[]): number {
+    let maxId = 0;
+    for (const boards of board) {
+      if (boards.id > maxId) {
+        maxId = boards.id;
+        console.log(maxId);
+        
+      }
+    }
+    return maxId + 1;
+  }
 }

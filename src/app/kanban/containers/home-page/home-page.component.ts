@@ -1,33 +1,3 @@
-// import { Component, EventEmitter, Output } from '@angular/core';
-// import { AuthService } from '../../../auth/services/auth.service';
-// import { Router, RouterModule  } from '@angular/router';
-// import { BoardFormComponent } from '../../components/board-form/board-form.component';
-// import { CommonModule } from '@angular/common';
-// import { IBoardDto } from '../../../core/models/board.model';
-// import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-// @Component({
-//   selector: 'app-home-page',
-//   standalone: true,
-//   imports: [ RouterModule, BoardFormComponent, CommonModule],
-//   templateUrl: './home-page.component.html',
-//   styleUrl: './home-page.component.scss'
-// })
-// export class HomePageComponent {
-//   public userName: string|undefined;
-//   showBoardForm: boolean = false;
-
-
-//   toggleBoardForm() {
-//     this.showBoardForm = !this.showBoardForm;
-//   }
-
-//   constructor(private authService: AuthService, private router: Router ) {
-//     this.userName = this.authService.userLoggedFullName;
-//   }
-  
-// }
-
 
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -37,12 +7,13 @@ import { Router, RouterModule  } from '@angular/router';
 import {LocalStorageService } from '../../../core/services/local-storage.service';
 import { BoardsService } from '../../services/boards.service';
 import { CommonModule } from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [ RouterModule, CommonModule],
+  imports: [ RouterModule, CommonModule, MatCardModule],
 })
 
 
@@ -57,14 +28,19 @@ ngOnInit(){
   this.loadBoards();
 }
   openBoardDialog() {
+    const nextId = this.boardsService.getId(this.boards);
     const dialogRef = this.dialog.open(BoardFormComponent, {
-      width: '500px'
+      width: '500px',
+      height:'500px',
+      data: { nextId: nextId }
+      
     });
 
     dialogRef.componentInstance.onRegister.subscribe((boardDto: IBoardDto) => {
       console.log('Board registered:', boardDto);
-      this.boardsService.saveBoard(boardDto); // Sauvegardez le tableau à l'aide du service BoardsService
-      this.loadBoards(); // Rechargez les tableaux après l'enregistrement d'un nouveau tableau
+      
+      this.boardsService.saveBoard(boardDto); 
+      this.loadBoards(); 
     });
   }
   loadBoards() {
@@ -72,5 +48,4 @@ ngOnInit(){
     this.boards = this.localStorageService.getAll(this.BOARD_DB_KEY);
     console.log(this.boards)
   }
-
 }
