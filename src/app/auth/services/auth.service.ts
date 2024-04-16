@@ -35,4 +35,8 @@ export class AuthService {
   public getUser(): IUserDto | undefined {
     return this._user;
   }
+  public getCurrentUserEmail(): string | undefined {
+    const currentUser = this.getUser();
+    return currentUser ? currentUser.email : undefined;
+  }
 }

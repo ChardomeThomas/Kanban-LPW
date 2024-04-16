@@ -8,6 +8,7 @@ import {LocalStorageService } from '../../../core/services/local-storage.service
 import { BoardsService } from '../../services/boards.service';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
+import { AuthService } from '../../../auth/services/auth.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -21,31 +22,35 @@ export class HomePageComponent {
   public userName: string | undefined;
   public boards: IBoardDto[] = [];
   private readonly BOARD_DB_KEY = 'board';
-  constructor(private dialog: MatDialog, private localStorageService: LocalStorageService, private boardsService: BoardsService) {
+  constructor(private dialog: MatDialog, private localStorageService: LocalStorageService, private boardsService: BoardsService, private authService: AuthService) {
     this.userName = 'Username';
   } 
 ngOnInit(){
   this.loadBoards();
 }
   openBoardDialog() {
-    const nextId = this.boardsService.getId(this.boards);
     const dialogRef = this.dialog.open(BoardFormComponent, {
       width: '500px',
       height:'500px',
-      data: { nextId: nextId }
       
     });
 
     dialogRef.componentInstance.onRegister.subscribe((boardDto: IBoardDto) => {
-      console.log('Board registered:', boardDto);
+      // console.log('Board registered:', boardDto);
       
       this.boardsService.saveBoard(boardDto); 
       this.loadBoards(); 
     });
   }
   loadBoards() {
-    
     this.boards = this.localStorageService.getAll(this.BOARD_DB_KEY);
-    console.log(this.boards)
+
+    const userEmail = this.authService.getCurrentUserEmail();
+
+    if (userEmail) { 
+      this.boards = this.boards.filter(board => board.email === userEmail);
+    } else {
+      console.error("L'utilisateur n'est pas connecté.");
+    }
   }
 }

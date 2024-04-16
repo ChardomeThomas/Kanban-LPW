@@ -6,21 +6,21 @@ import { IBoardDto } from '../../core/models/board.model';
   providedIn: 'root'
 })
 export class BoardsService {
-	private readonly BOARD_DB_KEY = 'board';
+  private readonly BOARD_DB_KEY = 'board';
 
   constructor(private localStorageService: LocalStorageService) { }
+
   public saveBoard(board: IBoardDto): void {
-    return this.localStorageService.setOne(this.BOARD_DB_KEY, board);
+    this.localStorageService.setOne(this.BOARD_DB_KEY, board);
   }
-  public getId(board: IBoardDto[]): number {
-    let maxId = 0;
-    for (const boards of board) {
-      if (boards.id > maxId) {
-        maxId = boards.id;
-        console.log(maxId);
-        
-      }
+
+  public async getNextId(): Promise<number> {
+    const boards = this.localStorageService.getAll(this.BOARD_DB_KEY);
+    if (boards.length === 0) {
+      return 1; // Si aucun board existant, retourne 1 comme prochain ID
+    } else {
+      const maxId = Math.max(...boards.map(board => board.id));
+      return maxId + 1; // Retourne le prochain ID en ajoutant 1 au maximum des IDs existants
     }
-    return maxId + 1;
   }
 }
