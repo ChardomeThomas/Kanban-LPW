@@ -1,10 +1,14 @@
+<button mat-button (click)="openTaskFormDialog()">Ouvrir le formulaire de tâche</button>
+
+
+
 <div class="example-container">
     <h2>To do</h2>
 
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[StandByList, InProgressList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event)">
+        class="example-list" (cdkDropListDropped)="drop($event, 'todo')">
         @for (item of todo; track item) {
-        <div class="example-box" cdkDrag>{{item}}</div>
+        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
         }
     </div>
 </div>
@@ -12,40 +16,40 @@
 <div class="example-container">
     <h2>StandBy</h2>
 
-    <div cdkDropList #StandByList="cdkDropList" [cdkDropListData]="StandBy" [cdkDropListConnectedTo]="[todoList, InProgressList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event)">
-        @for (item of StandBy; track item) {
-        <div class="example-box" cdkDrag>{{item}}</div>
+    <div cdkDropList #StandByList="cdkDropList" [cdkDropListData]="standBy" [cdkDropListConnectedTo]="[todoList, InProgressList, BlockedList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event,'standBy')">
+        @for (item of standBy; track item) {
+        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
         }
     </div>
 </div>
 <div class="example-container">
     <h2>In Progress</h2>
 
-    <div cdkDropList #InProgressList="cdkDropList" [cdkDropListData]="InProgress" [cdkDropListConnectedTo]="[todoList, StandByList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event)">
-        @for (item of InProgress; track item) {
-        <div class="example-box" cdkDrag>{{item}}</div>
+    <div cdkDropList #InProgressList="cdkDropList" [cdkDropListData]="inProgress" [cdkDropListConnectedTo]="[todoList, StandByList, BlockedList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event, 'inProgress')">
+        @for (item of inProgress; track item) {
+        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
         }
     </div>
 </div>
 <div class="example-container">
     <h2> Blocked</h2>
 
-    <div cdkDropList #BlockedList="cdkDropList" [cdkDropListData]="Blocked" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event)">
-        @for (item of Blocked; track item) {
-        <div class="example-box" cdkDrag>{{item}}</div>
+    <div cdkDropList #BlockedList="cdkDropList" [cdkDropListData]="blocked" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, CloseList]"
+        class="example-list" (cdkDropListDropped)="drop($event, 'blocked')">
+        @for (item of blocked; track item) {
+        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
         }
     </div>
 </div>
 <div class="example-container">
     <h2>Close</h2>
 
-    <div cdkDropList #CloseList="cdkDropList" [cdkDropListData]="Close" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, BlockedList]"
-        class="example-list" (cdkDropListDropped)="drop($event)">
-        @for (item of Close; track item) {
-        <div class="example-box" cdkDrag>{{item}}</div>
+    <div cdkDropList #CloseList="cdkDropList" [cdkDropListData]="close" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, BlockedList]"
+        class="example-list" (cdkDropListDropped)="drop($event, 'close')">
+        @for (item of close; track item) {
+        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
         }
     </div>
 </div>

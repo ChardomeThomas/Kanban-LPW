@@ -1,37 +1,95 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/services/auth.service';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {  CdkDragDrop,
   CdkDrag,
   CdkDropList,
-} from '@angular/cdk/drag-drop';
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem, } from '@angular/cdk/drag-drop';
+import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { ITaskDto } from './../../../core/models/task.model';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskFormComponent } from '../../components/task-form/task-form.component';
+import { TasksService } from '../../services/tasks.service';
+
 @Component({
   selector: 'app-board-page',
-  standalone: true,
-  imports: [CdkDropList, CdkDrag],
   templateUrl: './board-page.component.html',
-  styleUrl: './board-page.component.scss'
+  styleUrls: ['./board-page.component.scss'],
+  standalone: true,
+  imports: [MatInputModule, CdkDropListGroup, CdkDropList, CdkDrag],
 })
-export class BoardPageComponent {
-  todo: any [] = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+export class BoardPageComponent implements OnInit {
+  todo: ITaskDto[] = [];
+  standBy: ITaskDto[] = [];
+  inProgress: ITaskDto[] = [];
+  blocked: ITaskDto[] = [];
+  close: ITaskDto[] = [];
+  idBoard: string | null = null; // ID du tableau
 
-  StandBy: any [] = [];
-  InProgress: any [] = [];
-  Blocked: any [] = [];
-  Close: any [] = [];
-  drop(event: CdkDragDrop<string[]>) {
+  constructor(
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService,
+    private dialog: MatDialog,
+    private tasksService: TasksService,
+  ) {
+    this.idBoard = '';
+  }
+
+  ngOnInit() {
+    this.route.url.subscribe(urlSegments => {
+      if (urlSegments.length > 1) {
+        // Si l'URL a plus d'un segment, le deuxième segment est considéré comme l'ID du tableau
+        this.idBoard = urlSegments[1].path;
+        this.loadTasks();
+        
+      }
+    });
+  }
+
+  openTaskFormDialog() {
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      width: '400px',
+      data: { idBoard: this.idBoard } // Passer l'id du tableau dans les données du dialogue
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Recharger les tâches après la fermeture de la boîte de dialogue
+      this.loadTasks();
+    });
+  }
+  
+
+  loadTasks() {
+    if (this.idBoard) { // Vérifiez que idBoard est défini avant de charger les tâches
+      this.todo = this.tasksService.getTasksByStatus('todo', this.idBoard);
+      this.standBy = this.tasksService.getTasksByStatus('standBy', this.idBoard);
+      this.inProgress = this.tasksService.getTasksByStatus('inProgress', this.idBoard);
+      this.blocked = this.tasksService.getTasksByStatus('blocked', this.idBoard);
+      this.close = this.tasksService.getTasksByStatus('close', this.idBoard);
+      console.log(this.todo, this.standBy, this.inProgress, this.blocked, this.close);
+    }
+    
+  }
+
+  drop(event: CdkDragDrop<ITaskDto[]>, status: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      const taskToMove = event.previousContainer.data[event.previousIndex];
+      taskToMove.status = status; // Mettre à jour le statut de la tâche déplacée avec le statut de la colonne de destination
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex,
       );
+  
+      // Enregistrer la mise à jour du statut de la tâche dans le service
+      this.tasksService.updateTaskStatus(taskToMove);
     }
   }
+  
 }

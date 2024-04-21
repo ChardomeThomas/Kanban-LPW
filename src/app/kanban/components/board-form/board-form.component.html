@@ -6,7 +6,7 @@
 		   <mat-form-field class="example-full-width">
 			 <mat-label>Titre</mat-label>
 			 <input matInput formControlName="title" placeholder="Titre">
-			 <mat-error *ngIf="form.controls['title'].touched && form.controls['title'].invalid">
+			 <mat-error If="form.controls['title'].touched && form.controls['title'].invalid">
 			   Champs requis
 			 </mat-error>
 		   </mat-form-field>
@@ -14,7 +14,7 @@
 		   <mat-form-field class="example-full-width">
 			 <mat-label>Description</mat-label>
 			 <textarea matInput formControlName="description" placeholder="Description"></textarea>
-			 <mat-error *ngIf="form.controls['description'].touched && form.controls['description'].invalid">
+			 <mat-error If="form.controls['description'].touched && form.controls['description'].invalid">
 			   Champs requis
 			 </mat-error>
 		   </mat-form-field>
@@ -22,7 +22,7 @@
 		   <mat-form-field class="example-full-width">
 			 <mat-label>Image</mat-label>
 			 <textarea matInput formControlName="url" type="url" placeholder="Url de votre image"></textarea>
-			 <mat-error *ngIf="form.controls['url'].touched && (form.controls['url'].hasError('isUrlValid') || form.controls['url'].invalid)">
+			 <mat-error If="form.controls['url'].touched && (form.controls['url'].hasError('isUrlValid') || form.controls['url'].invalid)">
 			   {{ form.controls['url'].hasError('isUrlValid') ? 'Url non valide' : 'Champs requis' }}
 			 </mat-error>
 		   </mat-form-field>
