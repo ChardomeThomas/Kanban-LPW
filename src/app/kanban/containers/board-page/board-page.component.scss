@@ -81,10 +81,5 @@ button{
     margin-left:auto;
     margin-right:auto;
   }
-  .push-pin:nth-child(odd){
-    transform:rotate(4deg);
-  }
-  .push-pin:nth-child(even){
-    transform:rotate(-4deg);
-  }
+
 
