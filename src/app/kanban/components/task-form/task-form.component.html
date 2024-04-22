@@ -1,4 +1,3 @@
-<!-- src/app/components/task-form/task-form.component.html -->
 <mat-dialog-content>
   <form [formGroup]="taskForm">
     <mat-form-field>
@@ -9,8 +8,14 @@
       <mat-label>Description</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tag</mat-label>
+      <mat-select formControlName="tag" (selectionChange)="onTagSelectionChange($event)">
+        <mat-option *ngFor="let tag of tags; let i = index" [value]="i">{{ tag }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="saveTask()">Sauvegarder</button>
-  </mat-dialog-actions>
+  <button mat-button (click)="saveTask()">Sauvegarder</button>
+</mat-dialog-actions>
