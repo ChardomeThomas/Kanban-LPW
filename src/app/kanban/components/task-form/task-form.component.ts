@@ -8,13 +8,15 @@ import { TasksService } from '../../services/tasks.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatOption } from '@angular/material/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatDialogModule, MatOption, MatSelectModule]
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatDialogModule, MatOption, MatSelectModule, MatIconModule, MatButtonModule]
 })
 export class TaskFormComponent implements OnInit {
   taskForm: FormGroup = new FormGroup({});
@@ -22,7 +24,7 @@ export class TaskFormComponent implements OnInit {
   @Output() taskCreated: EventEmitter<void> = new EventEmitter<void>();
   tags: string[] = ['Urgent', 'Didier', 'Ludo', 'Front', 'Back'];
   color: string[] = ['red', 'blue', 'green', 'yellow', 'purple'];
-  selectedColor: string = ''; // Ajout de la variable selectedColor
+  selectedColor: string = 'white'; // Ajout de la variable selectedColor
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,

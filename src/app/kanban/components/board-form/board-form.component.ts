@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
 import { UrlValidator } from '../../../shared/helper/url-validators.helper';
 import { BoardsService } from '../../services/boards.service';
 import { AuthService } from './../../../auth/services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-board-form',
   templateUrl: './board-form.component.html',
   styleUrls: ['./board-form.component.scss'],
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatIconModule, MatButtonModule],
 
 standalone: true,
 })

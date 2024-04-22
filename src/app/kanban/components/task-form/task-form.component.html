@@ -6,7 +6,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea matInput formControlName="description" rows="10" cols="15"></textarea>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Tag</mat-label>
@@ -17,5 +17,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="saveTask()">Sauvegarder</button>
+  <button mat-mini-fab color="primary" (click)="saveTask()" aria-label="Example icon button with a filter list icon">
+    <mat-icon>done</mat-icon>
+    </button>
 </mat-dialog-actions>

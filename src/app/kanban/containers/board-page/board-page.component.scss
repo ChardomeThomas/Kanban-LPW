@@ -1,3 +1,9 @@
+.container {
+  background-image: url("../../../../assets/images/backdrop.jpg");
+  background-size: cover; /* Couvre toute la zone visible */
+  background-position: center; /* Centre l'image dans l'élément */
+  height:100%;
+}
 .button-container{
   margin-right:25px;
   display:flex;
@@ -13,12 +19,12 @@ button{
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
+    border: solid 1px #000000;
   }
-  
+
   .task-list {
-    border: solid 1px #ccc;
+    
     min-height: 60px;
-    background: white;
     border-radius: 4px;
     overflow: hidden;
     display: block;
@@ -26,19 +32,21 @@ button{
   
   .task-box {
     padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     cursor: move;
-    background: rgba(211, 211, 211, 0.721);
     border-radius:30px;
     margin: 10px;
     font-size: 14px;
-  
+    border: solid black 3px;
   }
-  
+  .task-box:nth-child(odd){
+    transform:rotate(4deg);
+  }
+  .task-box:nth-child(even){
+    transform:rotate(-4deg);
+  }
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
@@ -55,9 +63,7 @@ button{
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   
-  .task-box:last-child {
-    border: none;
-  }
+
   
   .task-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
@@ -70,3 +76,15 @@ button{
     flex-direction: row;
     margin-top:10px;
   }
+  .push-pin{
+    position: relative;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .push-pin:nth-child(odd){
+    transform:rotate(4deg);
+  }
+  .push-pin:nth-child(even){
+    transform:rotate(-4deg);
+  }
+

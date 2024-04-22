@@ -1,32 +1,36 @@
-<div class="test">
-<div class="button-container">
-  <button mat-fab color="primary" aria-label="create board button"
-      (click)="openBoardDialog()">
-      <mat-icon>add</mat-icon>
-  </button>
-  <!-- <div > -->
+<div class="container">
+  <div class="board-container">
+    <div class="button-container">
+      <button mat-fab color="primary" aria-label="create board button" (click)="openBoardDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <!-- <div > -->
       <!-- @if(boards.length > 0){ -->
-</div>
-<router-outlet></router-outlet>
+    </div>
+    <router-outlet></router-outlet>
 
-<div class="container"> @for( board of boards; track board){
-    <mat-card class="board-card">
-        <a [routerLink]="['/board/', board.id] "style="text-decoration: none; color: inherit;">
-        <router-outlet></router-outlet>
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{ board.title }}</mat-card-title>
-            <img mat-card-md-image src="{{ board.url }}" >
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          {{board.description}}
-        </mat-card-content>
-    </a>
+    <div class="board-card-container"> @for( board of boards; track board){
+      <mat-card class="board-card">
+        <span class="material-icons push-pin">
+          push_pin
+        </span>
+        <a [routerLink]="['/board/', board.id] " style="text-decoration: none; color: inherit;">
+          <router-outlet></router-outlet>
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ board.title }}</mat-card-title>
+              <img mat-card-md-image src="{{ board.url }}">
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            {{board.description}}
+          </mat-card-content>
+        </a>
       </mat-card>
-}
-</div>
+      }
+    </div>
+  </div>
 
-<!-- } -->
-<!-- </div> -->
+  <!-- } -->
+  <!-- </div> -->
 </div>
