@@ -13,7 +13,7 @@ import { AuthService } from './auth/services/auth.service';
 })
 
 export class AppComponent {
-  title = 'ng-kanban-bis';
+  title = 'kanban';
 
   constructor(public authService: AuthService) {
     

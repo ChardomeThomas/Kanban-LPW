@@ -1,55 +1,140 @@
-<button mat-button (click)="openTaskFormDialog()">Ouvrir le formulaire de tâche</button>
-
-
-
-<div class="example-container">
-    <h2>To do</h2>
-
-    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[StandByList, InProgressList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event, 'todo')">
-        @for (item of todo; track item) {
-        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
-        }
+<div class="container">
+    <div class="button-container">
+        <button mat-fab color="primary" aria-label="add task button"
+            (click)="openTaskFormDialog()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <a [routerLink]="['/home']">
+            <button mat-fab color="primary" aria-label="go to previous page button">
+                <mat-icon>keyboard_return</mat-icon>
+            </button>
+        </a>
     </div>
-</div>
+    <div class="task-container">
+        <h2>To do</h2>
 
-<div class="example-container">
-    <h2>StandBy</h2>
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[StandByList, InProgressList, BlockedList, CloseList]" class="task-list"
+            (cdkDropListDropped)="drop($event, 'todo')">
+            @for (item of todo; track item) {
+            <div class="task-box" cdkDrag>
+                <div>
+                    <h2>{{item.name}}</h2>
+                </div>
+                <div>{{item.description}}</div>
 
-    <div cdkDropList #StandByList="cdkDropList" [cdkDropListData]="standBy" [cdkDropListConnectedTo]="[todoList, InProgressList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event,'standBy')">
-        @for (item of standBy; track item) {
-        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
-        }
+                <div class="task-button">
+                    <button mat-mini-fab color="accent" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)"> 
+                        <mat-icon >edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                    </div>
+
+            </div>
+            }
+        </div>
     </div>
-</div>
-<div class="example-container">
-    <h2>In Progress</h2>
 
-    <div cdkDropList #InProgressList="cdkDropList" [cdkDropListData]="inProgress" [cdkDropListConnectedTo]="[todoList, StandByList, BlockedList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event, 'inProgress')">
-        @for (item of inProgress; track item) {
-        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
-        }
-    </div>
-</div>
-<div class="example-container">
-    <h2> Blocked</h2>
+    <div class="task-container">
+        <h2>StandBy</h2>
 
-    <div cdkDropList #BlockedList="cdkDropList" [cdkDropListData]="blocked" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, CloseList]"
-        class="example-list" (cdkDropListDropped)="drop($event, 'blocked')">
-        @for (item of blocked; track item) {
-        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
-        }
-    </div>
-</div>
-<div class="example-container">
-    <h2>Close</h2>
+        <div cdkDropList #StandByList="cdkDropList" [cdkDropListData]="standBy"
+            [cdkDropListConnectedTo]="[todoList, InProgressList, BlockedList, CloseList]" class="task-list"
+            (cdkDropListDropped)="drop($event,'standBy')">
+            @for (item of standBy; track item) {
+            <div class="task-box" cdkDrag>
+                <div>
+                    <h2>{{item.name}}</h2>
+                </div>
+                <div>{{item.description}}</div>
 
-    <div cdkDropList #CloseList="cdkDropList" [cdkDropListData]="close" [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, BlockedList]"
-        class="example-list" (cdkDropListDropped)="drop($event, 'close')">
-        @for (item of close; track item) {
-        <div class="example-box" cdkDrag>{{item.name}} {{item.description}}</div>
-        }
+                <div class="task-button">
+                    <button mat-mini-fab color="accent" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)"> 
+                        <mat-icon >edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                    </div>
+            </div>
+            }
+        </div>
     </div>
+    <div class="task-container">
+        <h2>In Progress</h2>
+
+        <div cdkDropList #InProgressList="cdkDropList" [cdkDropListData]="inProgress"
+            [cdkDropListConnectedTo]="[todoList, StandByList, BlockedList, CloseList]" class="task-list"
+            (cdkDropListDropped)="drop($event, 'inProgress')">
+            @for (item of inProgress; track item) {
+            <div class="task-box" cdkDrag>
+                <div>
+                    <h2>{{item.name}}</h2>
+                </div>
+                <div>{{item.description}}</div>
+                <div class="task-button">
+                    <button mat-mini-fab color="accent" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)"> 
+                        <mat-icon >edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                    </div>
+
+            </div>
+            }
+        </div>
+    </div>
+    <div class="task-container">
+        <h2> Blocked</h2>
+
+        <div cdkDropList #BlockedList="cdkDropList" [cdkDropListData]="blocked"
+            [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, CloseList]" class="task-list"
+            (cdkDropListDropped)="drop($event, 'blocked')">
+            @for (item of blocked; track item) {
+            <div class="task-box" cdkDrag>
+                <div>
+                    <h2>{{item.name}}</h2>
+                </div>
+                <div>{{item.description}}</div>
+                <div class="task-button">
+                <button mat-mini-fab color="accent" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)"> 
+                    <mat-icon >edit</mat-icon>
+                </button>
+                <button mat-mini-fab color="warn" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="task-container">
+        <h2>Close</h2>
+
+        <div cdkDropList #CloseList="cdkDropList" [cdkDropListData]="close"
+            [cdkDropListConnectedTo]="[todoList, StandByList, InProgressList, BlockedList]" class="task-list"
+            (cdkDropListDropped)="drop($event, 'close')">
+            @for (item of close; track item) {
+            <div class="task-box" cdkDrag>
+                <div>
+                    <h2>{{item.name}}</h2>
+                </div>
+                <div>{{item.description}}</div>
+                <div class="task-button">
+                    <button mat-mini-fab color="accent" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)"> 
+                        <mat-icon >edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" aria-label="task icon button with a plus one icon" (click)="deleteTask(item.idBoard, item.idTask)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                    </div>
+
+            </div>
+            }
+        </div>
+    </div>
+
 </div>

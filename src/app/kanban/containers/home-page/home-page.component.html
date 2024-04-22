@@ -1,12 +1,16 @@
-<button (click)="openBoardDialog()">Créer un board</button>
-<a routerLink="/board/2">Accéder à la page board</a>
+<div class="test">
+<div class="button-container">
+  <button mat-fab color="primary" aria-label="create board button"
+      (click)="openBoardDialog()">
+      <mat-icon>add</mat-icon>
+  </button>
+  <!-- <div > -->
+      <!-- @if(boards.length > 0){ -->
+</div>
 <router-outlet></router-outlet>
 
-<div >
-    @if(boards.length > 0){
-    <p>liste des boards</p>
-<div> @for( board of boards; track board){
-    <mat-card class="example-card">
+<div class="container"> @for( board of boards; track board){
+    <mat-card class="board-card">
         <a [routerLink]="['/board/', board.id] "style="text-decoration: none; color: inherit;">
         <router-outlet></router-outlet>
         <mat-card-header>
@@ -23,5 +27,6 @@
 }
 </div>
 
-}
+<!-- } -->
+<!-- </div> -->
 </div>

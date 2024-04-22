@@ -9,12 +9,14 @@ import { BoardsService } from '../../services/boards.service';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import { AuthService } from '../../../auth/services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
   standalone: true,
-  imports: [ RouterModule, CommonModule, MatCardModule],
+  imports: [ RouterModule, CommonModule, MatCardModule, MatIconModule, MatButtonModule],
 })
 
 
@@ -28,6 +30,7 @@ export class HomePageComponent {
 ngOnInit(){
   this.loadBoards();
 }
+
   openBoardDialog() {
     const dialogRef = this.dialog.open(BoardFormComponent, {
       width: '500px',

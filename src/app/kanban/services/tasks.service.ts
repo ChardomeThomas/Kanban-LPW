@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ITaskDto } from '../../core/models/task.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { ITaskDto } from '../../core/models/task.model';
 export class TasksService {
   private readonly TASKS_DB_KEY = 'tasks';
 
-  constructor() {}
+  constructor(private localStorageService: LocalStorageService) { }
 
   saveTask(task: ITaskDto, idBoard: string) {
     let tasks = this.loadTasks();
@@ -33,7 +34,13 @@ export class TasksService {
     const allTasks = this.loadTasks();
     return allTasks.filter(task => task.status === status && task.idBoard === idBoard);
   }
+  deleteTask(idBoard: string, idTask: number) {
+    let tasks = this.loadTasks();
+    tasks = tasks.filter(task => !(task.idBoard === idBoard && task.idTask === idTask));
+    this.saveTasksToLocalStorage(tasks);
+  }
 
+  
   private getNextTaskId(tasks: ITaskDto[]): number {
     if (tasks.length === 0) {
       return 1; // Si aucune tâche existante, retourne 1 comme prochain ID

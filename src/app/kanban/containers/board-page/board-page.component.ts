@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import {  CdkDragDrop,
   CdkDrag,
   CdkDropList,
@@ -12,13 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { TasksService } from '../../services/tasks.service';
-
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
   standalone: true,
-  imports: [MatInputModule, CdkDropListGroup, CdkDropList, CdkDrag],
+  imports: [MatInputModule, CdkDropListGroup, CdkDropList, CdkDrag, MatIconModule, MatButtonModule, RouterModule],
 })
 export class BoardPageComponent implements OnInit {
   todo: ITaskDto[] = [];
@@ -47,7 +48,15 @@ export class BoardPageComponent implements OnInit {
       }
     });
   }
+  deleteTask(idBoard: string, idTask: number): void {
+    this.tasksService.deleteTask(idBoard, idTask);
+    // Rechargez les tâches après la suppression
+    this.loadTasks();
+  }
 
+
+  
+  
   openTaskFormDialog() {
     const dialogRef = this.dialog.open(TaskFormComponent, {
       width: '400px',
@@ -60,8 +69,8 @@ export class BoardPageComponent implements OnInit {
       this.loadTasks();
     });
   }
-  
 
+  
   loadTasks() {
     if (this.idBoard) { // Vérifiez que idBoard est défini avant de charger les tâches
       this.todo = this.tasksService.getTasksByStatus('todo', this.idBoard);
@@ -79,7 +88,7 @@ export class BoardPageComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       const taskToMove = event.previousContainer.data[event.previousIndex];
-      taskToMove.status = status; // Mettre à jour le statut de la tâche déplacée avec le statut de la colonne de destination
+      taskToMove.status = status; 
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -87,7 +96,7 @@ export class BoardPageComponent implements OnInit {
         event.currentIndex,
       );
   
-      // Enregistrer la mise à jour du statut de la tâche dans le service
+      
       this.tasksService.updateTaskStatus(taskToMove);
     }
   }

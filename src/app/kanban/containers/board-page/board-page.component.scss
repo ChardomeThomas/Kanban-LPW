@@ -1,12 +1,21 @@
-.example-container {
-    width: 400px;
+.button-container{
+  margin-right:25px;
+  display:flex;
+  flex-direction:column
+}
+button{
+  margin-top:25px;
+
+}
+.task-container {
+    width: 15%;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
   }
   
-  .example-list {
+  .task-list {
     border: solid 1px #ccc;
     min-height: 60px;
     background: white;
@@ -15,18 +24,19 @@
     display: block;
   }
   
-  .example-box {
+  .task-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     box-sizing: border-box;
     cursor: move;
-    background: white;
+    background: rgba(211, 211, 211, 0.721);
+    border-radius:30px;
+    margin: 10px;
     font-size: 14px;
+  
   }
   
   .cdk-drag-preview {
@@ -45,11 +55,18 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   
-  .example-box:last-child {
+  .task-box:last-child {
     border: none;
   }
   
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  .task-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   
+
+  .task-button{
+    display:flex;
+    justify-content:space-between;
+    flex-direction: row;
+    margin-top:10px;
+  }
