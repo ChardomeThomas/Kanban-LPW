@@ -24,7 +24,7 @@ export class TaskFormComponent implements OnInit {
   @Output() taskCreated: EventEmitter<void> = new EventEmitter<void>();
   tags: string[] = ['Urgent', 'Didier', 'Ludo', 'Front', 'Back'];
   color: string[] = ['red', 'blue', 'green', 'yellow', 'purple'];
-  selectedColor: string = 'white'; // Ajout de la variable selectedColor
+  selectedColor: string = 'white'; 
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
@@ -40,27 +40,27 @@ export class TaskFormComponent implements OnInit {
       tag: ['']
     });
 
-    console.log('ID du tableau:', this.data.idBoard); // Afficher l'identifiant du tableau dans la console
+    console.log('ID du tableau:', this.data.idBoard); 
   }
-  getColorForTag(tag: string): string { // Modification de l'argument en 'tag' au lieu de 'index'
+  getColorForTag(tag: string): string { 
     const index = this.tags.indexOf(tag);
     return this.color[index];
   }
   onTagSelectionChange(event: MatSelectChange): void {
-    const selectedIndex = event.value; // Index sélectionné dans la liste déroulante
-    const selectedTag = this.tags[selectedIndex]; // Récupérer le tag correspondant à l'index sélectionné
-    this.selectedColor = this.getColorForTag(selectedTag); // Stockage de la couleur correspondant au tag sélectionné
+    const selectedIndex = event.value; 
+    const selectedTag = this.tags[selectedIndex]; 
+    this.selectedColor = this.getColorForTag(selectedTag); 
 }
   saveTask() {
     if (this.taskForm.valid) {
       const taskData = {
         ...this.taskForm.value,
-        color: this.selectedColor, // Utilisation de selectedColor dans taskData
+        color: this.selectedColor, 
         status: 'todo' 
       };
       console.log(taskData);
       this.tasksService.saveTask(taskData, this.data.idBoard);
-      this.taskCreated.emit(); // Émettre un événement pour indiquer la création d'une nouvelle tâche
+      this.taskCreated.emit(); 
       this.dialogRef.close();
     }
   }

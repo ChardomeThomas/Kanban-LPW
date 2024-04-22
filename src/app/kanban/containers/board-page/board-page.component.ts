@@ -27,7 +27,7 @@ export class BoardPageComponent implements OnInit {
   inProgress: ITaskDto[] = [];
   blocked: ITaskDto[] = [];
   close: ITaskDto[] = [];
-  idBoard: string | null = null; // ID du tableau
+  idBoard: string | null = null; 
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +41,7 @@ export class BoardPageComponent implements OnInit {
   ngOnInit() {
     this.route.url.subscribe(urlSegments => {
       if (urlSegments.length > 1) {
-        // Si l'URL a plus d'un segment, le deuxième segment est considéré comme l'ID du tableau
+       
         this.idBoard = urlSegments[1].path;
         this.loadTasks();
         
@@ -60,19 +60,19 @@ export class BoardPageComponent implements OnInit {
   openTaskFormDialog() {
     const dialogRef = this.dialog.open(TaskFormComponent, {
       width: '400px',
-      data: { idBoard: this.idBoard } // Passer l'id du tableau dans les données du dialogue
+      data: { idBoard: this.idBoard } 
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // Recharger les tâches après la fermeture de la boîte de dialogue
+      
       this.loadTasks();
     });
   }
 
   
   loadTasks() {
-    if (this.idBoard) { // Vérifiez que idBoard est défini avant de charger les tâches
+    if (this.idBoard) { 
       this.todo = this.tasksService.getTasksByStatus('todo', this.idBoard);
       this.standBy = this.tasksService.getTasksByStatus('standBy', this.idBoard);
       this.inProgress = this.tasksService.getTasksByStatus('inProgress', this.idBoard);
